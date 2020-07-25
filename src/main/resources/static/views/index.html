@@ -1,0 +1,293 @@
+<html ng-app="aggregator">
+<meta charset="utf-8"></meta>
+<title>Aggregator Admin Panel</title>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.blockUI.overrides.css"></link>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap_3.3.5.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="/css/angular-ui-tree/angular-ui-tree.min.css"></link>
+    <link rel="stylesheet" href="/css/css_spinner_dots.css" type="text/css"></link>
+    <link rel="stylesheet" type="text/css" href="/css/cacheManagerStyling.css"></link>
+    <link rel="stylesheet" type="text/css" href="/css/main-styles.css"></link>
+    <link rel="stylesheet" type="text/css" href="/css/navbar-custom.css"></link>
+    <link rel="stylesheet" href="/lib/date-time-picker/datetimepicker.css" />
+
+    <!--	include js files	  -->
+
+    <script src="/lib/jquery/jquery_1.10.1.min.js"></script>
+    <script src="/lib/blockUI/jquery.blockUI.min.js"></script>
+    <script src="/lib/angular/angular_1.4.7.js"></script>
+    <script src="/lib/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+    <script type="text/javascript"
+            src="/lib/angular/angular-route.min.js"></script>
+    <script type="text/javascript"
+            src="/lib/angular-ui-tree/angular-ui-tree.min.js"></script>
+    <script src="/lib/bootstrap/bootstrap_3.3.5.min.js"></script>
+    <script type="text/javascript"
+            src="/js/angular-drag-and-drop-lists.js"></script>
+    <script src="/lib/angular/angular-animate_1.4.7.js"></script>
+
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/controllers.js"></script>
+    <script type="text/javascript" src="/js/pieNodeController.js"></script>
+    <script type="text/javascript" src="/js/services.js"></script>
+    <script type="text/javascript" src="/js/dirPagination.js"></script>
+    <script type="text/javascript" src="/lib/angular/ngStorage.js"></script>
+    <script type="text/javascript" src="/lib/date-time-picker/moment.js"></script>
+    <script type="text/javascript"
+            src="/lib/date-time-picker/datetimepicker.js"></script>
+    <script type="text/javascript"
+            src="/lib/date-time-picker/datetimepicker.templates.js"></script>
+    <script type="text/javascript"
+            src="/lib/date-time-picker/dateTimeInput.js"></script>
+    <!-- include controllers  -->
+    <script type="text/javascript"
+            src="/js/controllers/addPermissionFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/cacheAndServerManagerController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/ccPropertyFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/ccPropertyListController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/customMessageFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/customMessageListController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/deleteConfirmationController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/emailTemplateFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/emailTemplateListController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/emailToggleStatusConfirmationController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/errorPageController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/filterByTypeController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/getRolesAndPermissionsController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/ivrRefundReasonMappingFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/ivrRefundReasonMappingListController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/loadPermissionsController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/manageServersFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/manageAgentsFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/refundReasonFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/refundReasonListController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/smsTemplateFormController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/smsTemplateListController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/callDetailsUploadController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/smsToggleStatusConfirmationController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/toggleStatusConfirmationController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/aggregatorClientValidateController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/educativeInfoController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/educativeInfoFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/otsLabelFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/otsLabelListController.js"></script>
+    <script type="text/javascript" src="/js/controllers/blacklistUserFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/blacklistUserController.js"></script>
+    <script type="text/javascript" src="/js/controllers/sfAttributeFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/sfAttributeListController.js"></script>
+    <script type="text/javascript" src="/js/controllers/returnRetryController.js"></script>
+    <script type="text/javascript" src="/js/controllers/cancellationDetailsController.js"></script>
+    <script type="text/javascript" src="/js/controllers/cancellationDetailedViewController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/hystrixGroupConfigListController.js"></script>
+    <script type="text/javascript"
+            src="/js/controllers/hystrixGroupConfigFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/crmStatusController.js"></script>
+    <script type="text/javascript" src="/js/controllers/crmStatusAddEditController.js"></script>
+    <script type="text/javascript" src="/js/controllers/nprReasonFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/nprReasonListController.js"></script>
+    <script type="text/javascript" src="/js/controllers/reloadClientController.js"></script>
+    <script type="text/javascript" src="/js/controllers/apiControlFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/apiControlListController.js"></script>
+    <script type="text/javascript" src="/js/controllers/callLogController.js"></script>
+    <script type="text/javascript" src="/js/controllers/callLogFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/udMessageFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/udMessageListController.js"></script>
+    <script type="text/javascript" src="/js/controllers/aggCallLogController.js"></script>
+    <script type="text/javascript" src="/js/controllers/aggCallLogFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/bulkReturnsController.js"></script>
+    <script type="text/javascript" src="/js/controllers/myOrdersController.js"></script>
+    <script type="text/javascript" src="/js/controllers/myOrdersResultController.js"></script>
+    <script type="text/javascript" src="/js/controllers/myOrdersSummaryController.js"></script>
+    <script type="text/javascript" src="/js/controllers/urlMappingFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/urlMappingListController.js"></script>
+    <script type="text/javascript" src="/js/controllers/cancelOrderController.js"></script>
+    <script type="text/javascript" src="/js/controllers/returnOrderController.js"></script>
+    <script type="text/javascript" src="/js/controllers/callSearchController.js"></script>
+    <script type="text/javascript" src="/js/controllers/monitorRequestController.js"></script>
+    <script type="text/javascript" src="/js/controllers/cancelOrderController.js"></script>
+    <script type="text/javascript" src="/js/controllers/otsEntitiesController.js"></script>
+    <script type="text/javascript" src="/js/controllers/otsRecordFormController.js"></script>
+    <script type="text/javascript" src="/js/controllers/otsSearchRuleController.js"></script>
+    <script type="text/javascript" src="/js/controllers/placeOrderController.js"></script>
+    <script type="text/javascript" src="/js/controllers/thankYouPageController.js"></script>
+    <script type="text/javascript" src="/js/controllers/salesPanelAgentCredentialsController.js"></script>
+    <script type="text/javascript" src="/js/controllers/pendingLeadsController.js"></script>
+</head>
+
+<body ng-controller="loadPermissions">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-content">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"
+               title="Agg-Admin" rel="home"> <img src="/img/logo.png"
+                                                  width="120" alt="snapdeal" style="margin-top: -20"></img>
+            </a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+
+                <li ng-hide="isDefaultAccess" class="dropdown"><a href="/admin/#/"
+                                                                  class="dropdown-toggle" data-toggle="dropdown">Templates <i
+                        class="glyphicon glyphicon-menu-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li ng-hide="isDefaultAccess"><a href="#/customMessage">Custom Messages</a></li>
+                        <li ng-hide="isDefaultAccess"><a href="#/crmStatus">CRM Status</a></li>
+                        <li ng-hide="isEmailTemplateAccess"><a href="#/emailTemplate">Email Templates</a></li>
+                        <li ng-hide="isEducativeInfoAccess"><a href="#/educativeInfo">Educative Info</a></li>
+                        <li ng-hide="isIVRRefundAccess"><a href="#/ivrRefundReasonMapping">IVR Refund Reason Mapping</a></li>
+                        <li ng-hide="isCCPropertyAccess"><a href="#/manageNprReasons">NPR Reasons</a></li>
+                        <li ng-hide="isCCPropertyAccess"><a href="#/otsLabel">OTS Labels</a></li>
+                        <li ng-hide="isRefundReasonAccess"><a href="#/refundReason">Refund Reasons</a></li>
+                        <li ng-hide="isSMSTemplateAccess"><a href="#/smsTemplate">SMS Templates</a></li>
+                        <li ng-hide="isCCPropertyAccess"><a href="#/manageUdMessages">UD Messages</a></li>
+                    </ul></li>
+
+                <li ng-hide="isDefaultAccess" class="dropdown"><a href="/admin/#/"
+                                                                  class="dropdown-toggle" data-toggle="dropdown">Manage <i
+                        class="glyphicon glyphicon-menu-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li ng-hide="isCCPropertyAccess"><a href="#/ccProperty">Admin Property</a></li>
+                        <li ng-hide="isManagePermissionAccess"><a href="#/permissions">Manage Permissions</a></li>
+                        <li ng-hide="isManageCacheAccess"><a href="#/manageCache">Servers and Caches</a></li>
+                        <li ng-hide="isBlacklistUserAccess"><a href="#/blacklistUser">Blacklist User</a></li>
+                        <li ng-hide="isSfAttributeAccess"><a href="#/sfAttributes">SF Attributes</a></li>
+                        <li ng-hide="isHystrixGroupConfigAccess"><a href="#/hystrixGroupConfig">Hystrix Group Config</a></li>
+                        <li ng-hide="isDefaultAccess"><a href="#/manageApiToUrlMappings">Url Mappings</a></li>
+                        <li ng-hide="isDefaultAccess"><a href="#/manageAgents">Sales Panel Agent Manager</a></li>
+                    </ul></li>
+
+                <li ng-hide="isDefaultAccess" class="dropdown"><a href="/admin/#/"
+                                                                  class="dropdown-toggle" data-toggle="dropdown">Experiment <i
+                        class="glyphicon glyphicon-menu-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li ng-hide="isPieNodeAccess"><a href="#/pieNode">Pie Nodes</a></li>
+                        <li ng-hide="isDefaultAccess"><a href="#/aggregatorClientValidate">Validate Client</a></li>
+                    </ul></li>
+
+                <li ng-hide="isDefaultAccess" class="dropdown"><a href="/admin/#/"
+                                                                  class="dropdown-toggle" data-toggle="dropdown">Troubleshoot <i
+                        class="glyphicon glyphicon-menu-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li ng-hide="isDefaultAccess"><a href="#/viewAggCallLogs">Agg Call Logs</a></li>
+                        <li ng-hide="isCCPropertyAccess"><a href="#/manageApiControl">API Control</a></li>
+                        <li ng-hide="isCCPropertyAccess"><a href="#/manageCallLogControl">Call Log Control</a></li>
+                        <li ng-hide="isDefaultAccess"><a href="#/cancellationDetails">Cancellation Details</a></li>
+                        <li ng-hide="isBulkReturnsAccess"><a href="#/bulkReturns">Bulk Returns</a></li>
+                        <li ng-hide="isDefaultAccess"><a href="#/returndetails">Return Details</a></li>
+                        <li ng-hide="isDefaultAccess"><a href="#/monitorRequest">Monitor Request</a></li>
+                    </ul></li>
+
+                <li ng-hide="isMyOrdersViewAccess"><a href="#/myOrders">My Orders</a></li>
+                <li ng-hide="isMyOrdersViewAccess"><a href="#/placeOrder">Sales Panel</a></li>
+
+                <li ng-hide="isCallViewAccess"><a href="#/calls">Calls</a></li>
+
+                <li ng-hide="isOtsEntitiesAccess"><a href="#/otsEntities">Ots</a></li>
+
+
+            </ul>
+            <ul class="nav navbar-nav pull-right" style="padding-right: 50px;">
+                <li class="log_out"><a href=""><b>{{user}}</b></a></li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user" style="font-size: 25;"></span> <i class="glyphicon glyphicon-menu-down"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li ng-hide="isMyOrdersViewAccess"><a href="#/pendingLeads">Pending Leads</a></li>
+                        <li class="log_out"><a href="/logout"><b>Log Out</b></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+
+        <!-- <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" ng-repeat="val in finalList">
+
+                    <li ng-if="val[0] == 1">  <a href="{{val[2][0][0]}}"> {{val[2][0][1]}} </a>  </li>
+
+
+                       <li ng-if="val[0] != 1" class="dropdown" >
+                             <a href="/admin/#/" class="dropdown-toggle" data-toggle="dropdown">{{val[1]}}
+                                     <i class="glyphicon glyphicon-menu-down"></i> </a>
+
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="i in val[2]"> <a href= "{{i[0]}}"> {{i[1]}} </a></li>
+                            </ul>
+
+                        </li>
+
+
+            </ul>
+        </div>  -->
+
+
+
+
+
+    </div>
+
+</nav>
+<div class="container">
+
+    <section class="container main-content" ng-view="true"></section>
+</div>
+
+<div class="footer-content">
+    <div class="footer-text text-muted">Site Developed and
+        Maintained By CX-Team@Snapdeal</div>
+</div>
+</body>
+<script type="text/javascript">
+	$( ".nav li" ).on( "click", function () {
+		$( ".nav li" ).removeClass( "active" );
+		$( this ).addClass( "active" );
+	} );
+
+	$( 'ul.nav li.dropdown' ).hover( function () {
+		$( this ).find( '.dropdown-menu' ).stop( true, true ).delay( 100 ).fadeIn( 300 );
+	}, function () {
+		$( this ).find( '.dropdown-menu' ).stop( true, true ).delay( 100 ).fadeOut( 300 );
+	} );
+</script>
+</html>
