@@ -10,3 +10,7 @@ input.custom-width{
 input.spacing{
     margin-right: 5px;
 }
+
+.row{
+padding: 5px 5px 5px 5px;
+}

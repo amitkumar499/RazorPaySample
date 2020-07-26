@@ -4,13 +4,12 @@ Created by amit.chaurasia
 on 7/25/20 
 */
 
-import com.practice.RazorPaySample.request.CreatePaymentOrderRequest;
-import com.practice.RazorPaySample.request.MakePaymentRequest;
-import com.practice.RazorPaySample.response.CreatePaymentOrderResponse;
-import com.practice.RazorPaySample.response.MakePaymentResponse;
+import com.practice.RazorPaySample.request.sro.CapturePaymentRequest;
+import com.practice.RazorPaySample.request.sro.CreatePaymentOrderRequest;
+import com.practice.RazorPaySample.response.sro.CreatePaymentOrderResponse;
+import com.practice.RazorPaySample.response.sro.CapturePaymentResponse;
 import com.practice.RazorPaySample.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,23 +24,19 @@ public class PaymentController {
 
     @RequestMapping(value = "createPaymentOrder", method = RequestMethod.POST)
     public CreatePaymentOrderResponse createPaymentOrder(@RequestBody CreatePaymentOrderRequest request) {
-        CreatePaymentOrderResponse response = new CreatePaymentOrderResponse();
-        response = paymentService.createPaymentOrder(request);
+        CreatePaymentOrderResponse response = paymentService.createPaymentOrder(request);
+        if(response==null){
+            response=new CreatePaymentOrderResponse();
+            response.setSuccessful(false);
+        }
         return response;
     }
 
-    @RequestMapping(value = "makePayment", method = RequestMethod.POST)
-    public MakePaymentResponse makePayment(@RequestBody MakePaymentRequest request) {
-        MakePaymentResponse response = new MakePaymentResponse();
-        response = paymentService.makePayment(request);
-        return response;
-    }
+    @RequestMapping(value = "capturePayment", method = RequestMethod.POST)
+    public CapturePaymentResponse capturePayment(@RequestBody CapturePaymentRequest request) {
+        CapturePaymentResponse capturePaymentResponse= paymentService.capturePayment(request);
 
-    @RequestMapping(value = "createOrderAndMakePayment", method = RequestMethod.POST)
-    public CreatePaymentOrderResponse createOrderAndMakePayment(@RequestBody CreatePaymentOrderRequest request) {
-        CreatePaymentOrderResponse createPaymentOrderResponse = new CreatePaymentOrderResponse();
-
-        return createPaymentOrderResponse;
+        return capturePaymentResponse;
     }
 
 }

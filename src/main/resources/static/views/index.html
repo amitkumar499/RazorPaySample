@@ -8,55 +8,22 @@
 <hr/>
 <div class="container" ng-controller="RazorPayController">
     <div class="row">
-        <label>User</label> <input type="text" ng-model="userDto.userName" class="input-sm spacing"/>
-        <label>Skills</label> <input type="text" ng-model="skills" ng-list class="input-sm custom-width spacing"
-                                     placeholder="use comma to separate skills"/>
-        <button ng-click="saveUser()" class="btn btn-sm btn-info">Save User</button>
-    </div>
-    <hr/>
-    <div class="row">
-        <p>{{allUsers | json}}</p>
-    </div>
-    <hr/>
-    <div class="row" ng-repeat="user in allUsers">
-        <div class="">
-            <h3>{{user.userName}}</h3>
-            <span ng-repeat="skill in user.skillDtos" class="spacing">{{skill.skillName}}</span>
+        <div class="row"> <label>Enter Amount</label> <input type="text" ng-model="amount" class="input-sm spacing"/></div>
+        <div class="row"> <label>Select Currency</label>
+            <select class="input-sm spacing" ng-model="currency" ng-options="x for x in currencies">
+        </select>
+        </div>
+        <div class="row">
+            <button class="btn btn-sm btn-info" id="rzp-button1" ng-click="createOrderAndPay()">Pay</button>
         </div>
     </div>
+    <hr/>
+    <hr/>
 </div>
 
 </body>
-<button id="rzp-button1">Pay</button>
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-var options = {
-    "key": "rzp_test_58XUlAvksxpuAb", // Enter the Key ID generated from the Dashboard
-    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    "currency": "INR",
-    "name": "Acme Corp",
-    "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
-    "order_id": "order_FIr6N3P4NLfW6m", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
-    "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
-        "contact": "9873696142"
-    },
-    "notes": {
-        "address": "Razorpay Corporate Office"
-    },
-    "theme": {
-        "color": "#F37254"
-    }
-};
-var rzp1 = new Razorpay(options);
-document.getElementById('rzp-button1').onclick = function(e){
-    rzp1.open();
-    e.preventDefault();
-}
-</script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.js"></script>
 <script src="js/app/app.js"></script>

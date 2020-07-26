@@ -6,8 +6,10 @@ on 7/25/20
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RazorPayCreateOrderResponse {
+public class RazorPayCreateOrderResponse implements Serializable {
 
     private String id;
     private String entity;
