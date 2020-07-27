@@ -9,9 +9,11 @@ import com.practice.RazorPaySample.dao.TransactionDetailDao;
 import com.practice.RazorPaySample.entity.TransactionDetail;
 import com.practice.RazorPaySample.external.RazorPayExternalService;
 import com.practice.RazorPaySample.repository.TransactionDetailRepository;
+import com.practice.RazorPaySample.request.RazorPayCapturePaymentRequest;
 import com.practice.RazorPaySample.request.RazorPayCreateOrderRequest;
 import com.practice.RazorPaySample.request.sro.CapturePaymentRequest;
 import com.practice.RazorPaySample.request.sro.CreatePaymentOrderRequest;
+import com.practice.RazorPaySample.response.RazorPayCapturePaymentResponse;
 import com.practice.RazorPaySample.response.RazorPayPaymentsResponse;
 import com.practice.RazorPaySample.response.sro.CapturePaymentResponse;
 import com.practice.RazorPaySample.response.sro.CreatePaymentOrderResponse;
@@ -62,7 +64,7 @@ public class PaymentServiceImpl implements PaymentService {
         transactionDetail.setAmount(String.valueOf(response.getAmount()));
         transactionDetail.setOrderId(response.getId());
         transactionDetail.setCurrency(response.getCurrency());
-        transactionDetail.setStatus(PaymentStatus.CREATED.status());
+        transactionDetail.setStatus(PaymentStatus.CREATED.name());
         transactionDetail.setCreated(new Date());
         transactionDetail.setUpdated(new Date());
         return transactionDetail;
@@ -74,22 +76,37 @@ public class PaymentServiceImpl implements PaymentService {
         String data = request.getOrderId() + "|" + request.getTransactionId();
         try {
             if (validateRazorpaySignature(data, request.getSignature())) {
-                if (validatePaymentResponse(razorPayExternalService.getPaymentDetails(request.getTransactionId()), transactionDetailDao.findTransactionByOrderId
-                        (request.getOrderId())))
-                    razorPayExternalService.captureRazorPayPayment(prepareRazorPayCapturePaymentRequest(), 7000);
+                TransactionDetail transactionDetail = transactionDetailDao.findTransactionByOrderId(request.getOrderId());
+                if (validatePaymentResponse(razorPayExternalService.getPaymentDetails(request.getTransactionId()), transactionDetail)) {
+                    RazorPayCapturePaymentResponse razorPayCapturePaymentResponse = razorPayExternalService.captureRazorPayPayment(prepareRazorPayCapturePaymentRequest(transactionDetail),
+                            7000, request.getTransactionId());
+                    transactionDetail.setTransactionId(request.getTransactionId());
+                    if (razorPayCapturePaymentResponse.isCaptured()) {
+                        transactionDetail.setStatus(PaymentStatus.CAPTURED.name());
+                        transactionDetailDao.updateTransaction(transactionDetail);
+                        capturePaymentResponse.setCaptured(true);
+                    } else {
+                        transactionDetail.setStatus(PaymentStatus.AUTHORIZED.name());
+                        transactionDetailDao.updateTransaction(transactionDetail);
+                    }
+                }
             } else {
                 capturePaymentResponse.setSuccessful(false);
                 capturePaymentResponse.setMessage("Signature doesn't match, invalid payment !!!");
             }
         } catch (Exception e) {
+            capturePaymentResponse.setSuccessful(false);
             e.printStackTrace();
         }
 
-        return null;
+        return capturePaymentResponse;
     }
 
-    private CapturePaymentRequest prepareRazorPayCapturePaymentRequest() {
-        return null;
+    private RazorPayCapturePaymentRequest prepareRazorPayCapturePaymentRequest(TransactionDetail transactionDetail) {
+        RazorPayCapturePaymentRequest razorPayCapturePaymentRequest = new RazorPayCapturePaymentRequest();
+        razorPayCapturePaymentRequest.setAmount(Integer.valueOf(transactionDetail.getAmount()));
+        razorPayCapturePaymentRequest.setCurrency(transactionDetail.getCurrency());
+        return razorPayCapturePaymentRequest;
     }
 
 
@@ -111,7 +128,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private boolean validatePaymentResponse(RazorPayPaymentsResponse paymentDetails, TransactionDetail byOrderId) {
-        return paymentDetails.getAmount().equals(byOrderId.getAmount()) && paymentDetails.getCurrency().equals(paymentDetails.getCurrency()) &&
+        return paymentDetails.getAmount().equals(Integer.valueOf(byOrderId.getAmount())) && paymentDetails.getCurrency().equals(paymentDetails.getCurrency()) &&
                 PaymentStatus.AUTHORIZED.status().equalsIgnoreCase(paymentDetails.getStatus());
     }
 

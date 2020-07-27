@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @PropertySources({@PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true) })
 @SpringBootApplication
+@EnableScheduling
 public class RazorPaySampleApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

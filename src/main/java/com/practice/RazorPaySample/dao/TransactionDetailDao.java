@@ -11,6 +11,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public class TransactionDetailDao {
 
@@ -26,5 +29,14 @@ public class TransactionDetailDao {
     @Transactional
     public TransactionDetail findTransactionByOrderId(String orderId) {
         return transactionDetailRepository.findByOrderId(orderId);
+    }
+
+    @Transactional
+    public List<TransactionDetail> findTxnForStatusCheck(Date endTime){
+        return transactionDetailRepository.findTxnForStatusCheck(endTime);
+    }
+
+    public void updateTransaction(TransactionDetail transactionDetail) {
+        transactionDetailRepository.save(transactionDetail);
     }
 }

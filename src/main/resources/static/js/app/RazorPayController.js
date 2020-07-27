@@ -10,6 +10,7 @@ module.controller("RazorPayController", ["$scope", "RazorPayService",
                 $scope.currencies = ["INR", "USD"];
                 $scope.createOrderAndPay = function() {
                 $scope.message="";
+                $scope.isCaptured=false;
                     var request = {
                         "amount": $scope.amount + "00",
                         "currency": $scope.currency
@@ -34,17 +35,21 @@ module.controller("RazorPayController", ["$scope", "RazorPayService",
                                 "transactionId": response.razorpay_payment_id,
                                 "signature": response.razorpay_signature,
                             }
-                            RazorPayService.capturePayment(captureRequest).then(function() {
+                            RazorPayService.capturePayment(captureRequest).then(function(response) {
                                         console.log("works");
-                                            $scope.allUsers = value.data;
-                                        }, function(reason) {
+                                            $scope.isCaptured = response.data.captured;
+                                            if($scope.isCaptured)
+                                                                                   $scope.message="Payment done Successfully";
+                                                                                     else
+                                                                                   $scope.message="There is some issue with the payment, if your money got deducted then please wait for 20 mins else you will get refund";
+
+                                             }, function(reason) {
                                             console.log("error occured");
                                         }, function(value) {
                                             console.log("no callback");
                                         });
                                         console.log(response);
-
-                                },
+                                   },
                                 "prefill": {
                                     "name": "Test User",
                                     "email": "test.user@example.com",
@@ -62,6 +67,7 @@ module.controller("RazorPayController", ["$scope", "RazorPayService",
                         }else{
                         $scope.message="Error while creating order...please try again";
                         }
+
                     }
 
                     function errorCallback(error) {

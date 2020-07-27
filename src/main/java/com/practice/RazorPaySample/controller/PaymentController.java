@@ -35,7 +35,6 @@ public class PaymentController {
     @RequestMapping(value = "capturePayment", method = RequestMethod.POST)
     public CapturePaymentResponse capturePayment(@RequestBody CapturePaymentRequest request) {
         CapturePaymentResponse capturePaymentResponse= paymentService.capturePayment(request);
-
         return capturePaymentResponse;
     }
 

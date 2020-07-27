@@ -6,10 +6,12 @@ on 7/25/20
 
 import com.practice.RazorPaySample.constants.RazorPayAPI;
 import com.practice.RazorPaySample.exception.HttpTransportException;
+import com.practice.RazorPaySample.request.RazorPayCapturePaymentRequest;
 import com.practice.RazorPaySample.request.RazorPayCreateOrderRequest;
 import com.practice.RazorPaySample.request.sro.CapturePaymentRequest;
 import com.practice.RazorPaySample.response.RazorPayCapturePaymentResponse;
 import com.practice.RazorPaySample.response.RazorPayCreateOrderResponse;
+import com.practice.RazorPaySample.response.RazorPayOrderStatusResponse;
 import com.practice.RazorPaySample.response.RazorPayPaymentsResponse;
 import com.practice.RazorPaySample.transport.HttpSender;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -37,9 +39,9 @@ public class RazorPayExternalService {
         return response;
     }
 
-    public RazorPayCapturePaymentResponse captureRazorPayPayment(CapturePaymentRequest request, Integer timeout) throws HttpTransportException {
+    public RazorPayCapturePaymentResponse captureRazorPayPayment(RazorPayCapturePaymentRequest request, Integer timeout, String transactionId) throws HttpTransportException {
         String WEB_SERVICE_URL = environment.getProperty("razorpay.web.service.url");
-        RazorPayCapturePaymentResponse response = HttpSender.getInstance().executePostRequest(WEB_SERVICE_URL, request, RazorPayCapturePaymentResponse.class, timeout, getHeaders());
+        RazorPayCapturePaymentResponse response = HttpSender.getInstance().executePostRequest(WEB_SERVICE_URL+RazorPayAPI.PAYMENTS.value()+SEPARATOR+transactionId+SEPARATOR+RazorPayAPI.CAPTURE.value(), request, RazorPayCapturePaymentResponse.class, timeout, getHeaders());
         return response;
     }
 
@@ -50,6 +52,12 @@ public class RazorPayExternalService {
         return response;
     }
 
+    public RazorPayOrderStatusResponse getPaymentStatusByOrderId(String orderId) throws HttpTransportException {
+        String WEB_SERVICE_URL = environment.getProperty("razorpay.web.service.url");
+        RazorPayOrderStatusResponse response = HttpSender.getInstance().executeGetRequest(WEB_SERVICE_URL + RazorPayAPI.ORDERS.value() + SEPARATOR + orderId + SEPARATOR + RazorPayAPI.PAYMENTS.value(), getHeaders(), RazorPayOrderStatusResponse.class);
+        System.out.println(response.toString());
+        return response;
+    }
     public Map<String, String> getHeaders() {
         String apiKey = environment.getProperty("razorpay.api.key");
         String apiSecret = environment.getProperty("razorpay.api.secret.key");
