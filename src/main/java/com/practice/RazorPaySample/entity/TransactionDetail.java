@@ -11,7 +11,7 @@ import java.util.Date;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "transaction_detail", catalog = "test")
+@Table(name = "transaction_detail")
 public class TransactionDetail {
 
     private int id;

@@ -7,6 +7,8 @@
 <body ng-app="razorpayDemo">
 <hr/>
 <div class="container" ng-controller="RazorPayController">
+    <div class="row"> <h2>Razorpay Payment Test Page</h2></div>
+    <hr/>
     <div class="row">
         <div class="row"> <label>Enter Amount</label> <input type="text" ng-model="amount" class="input-sm spacing"/></div>
         <div class="row"> <label>Select Currency</label>
@@ -16,10 +18,17 @@
         <div class="row">
             <button class="btn btn-sm btn-info" id="rzp-button1" ng-click="createOrderAndPay()">Pay</button>
         </div>
+        <div class="row"> <label>{{message}}</label>
     </div>
     <hr/>
-    <div class="row"> <label>{{message}}</label>
+    <div class="row"><p>Note :</p>
+        <p>1. You will be shown success message if payment is successful</p>
+        <p>2. An order is created for every click on pay</p>
+        <p>3. If payment is failed nothing will be shown</p>
+        <p>4. If payment is failed, payment status is updated at backend by scheduler</p>
+    </div>
     <hr/>
+
 </div>
 
 </body>

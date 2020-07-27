@@ -8,7 +8,6 @@ import com.practice.RazorPaySample.constants.PaymentStatus;
 import com.practice.RazorPaySample.dao.TransactionDetailDao;
 import com.practice.RazorPaySample.entity.TransactionDetail;
 import com.practice.RazorPaySample.external.RazorPayExternalService;
-import com.practice.RazorPaySample.repository.TransactionDetailRepository;
 import com.practice.RazorPaySample.request.RazorPayCapturePaymentRequest;
 import com.practice.RazorPaySample.request.RazorPayCreateOrderRequest;
 import com.practice.RazorPaySample.request.sro.CapturePaymentRequest;
